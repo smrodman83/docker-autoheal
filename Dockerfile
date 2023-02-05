@@ -1,4 +1,5 @@
 #FROM alpine:3.13.5
+FROM scratch
 
 RUN apk add --no-cache curl jq
 
