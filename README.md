@@ -1,15 +1,9 @@
 # Docker Autoheal
+Fork of ‘willfarrell/docker-autoheal‘ tweaked to work with discord webhook.
 
 Monitor and restart unhealthy docker containers. 
 This functionality was proposed to be included with the addition of `HEALTHCHECK`, however didn't make the cut.
 This container is a stand-in till there is native support for `--exit-on-unhealthy` https://github.com/docker/docker/pull/22719.
-
-## Supported tags and Dockerfile links
-- [`latest` (*Dockerfile*)](https://github.com/willfarrell/docker-autoheal/blob/main/Dockerfile) - Built daily
-- [`1.1.0` (*Dockerfile*)](https://github.com/willfarrell/docker-autoheal/blob/1.1.0/Dockerfile)
-- [`v0.7.0` (*Dockerfile*)](https://github.com/willfarrell/docker-autoheal/blob/v0.7.0/Dockerfile)
-
-![](https://img.shields.io/docker/pulls/willfarrell/autoheal "Total docker pulls") [![](https://images.microbadger.com/badges/image/willfarrell/autoheal.svg)](http://microbadger.com/images/willfarrell/autoheal "Docker layer breakdown")
 
 ## How to use
 ### UNIX socket passthrough
@@ -19,7 +13,7 @@ docker run -d \
     --restart=always \
     -e AUTOHEAL_CONTAINER_LABEL=all \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    willfarrell/autoheal
+    smrodman83/docker-autoheal
 ```
 ### TCP socket
 ```bash
@@ -29,7 +23,7 @@ docker run -d \
     -e AUTOHEAL_CONTAINER_LABEL=all \
     -e DOCKER_SOCK=tcp://HOST:PORT \
     -v /path/to/certs/:/certs/:ro \
-    willfarrell/autoheal
+    smrodman83/docker-autoheal
 ```
 a) Apply the label `autoheal=true` to your container to have it watched.
 
@@ -60,7 +54,7 @@ AUTOHEAL_START_PERIOD=0   # wait 0 seconds before first health check
 AUTOHEAL_DEFAULT_STOP_TIMEOUT=10   # Docker waits max 10 seconds (the Docker default) for a container to stop before killing during restarts (container overridable via label, see below)
 DOCKER_SOCK=/var/run/docker.sock   # Unix socket for curl requests to Docker API
 CURL_TIMEOUT=30     # --max-time seconds for curl requests to Docker API
-WEBHOOK_URL=""    # post message to the webhook if a container was restarted (or restart failed)
+WEBHOOK_URL=""    # post message to the webhook if a container was restarted (or restart failed) (DISCORD)
 ```
 
 ### Optional Container Labels
